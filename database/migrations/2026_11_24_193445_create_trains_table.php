@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger('tot_carriages', false, true);
             $table->boolean('in_time');
             $table->boolean('cancelled');
+            $table->decimal('price', total: 8, places: 2);
 
             $table->timestamps();
         });

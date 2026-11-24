@@ -24,18 +24,19 @@
                 <span>{{ $cancelled ? 'This train was cancelled' :
                     ($train->in_time == 1 ?
                     'In time' :
-                    'Late') }}
+                    $train->late_time .= ' minutes late') }}
                 </span>
 
                 <h3 class="d-block" >{{ $train->company }}</h3>
                 <h5 class="d-block" >{{ $train->train_code }} </h5>
 
-                <span class="d-block" >Departure in: {{ $train->departure_date }}</span>
+                <span class="d-block" >Departure on: {{ $train->departure_date }}</span>
                 <span class="d-block" >From: {{ $train->departure_station}}</span>
                 <span class="d-block" >At: {{ $train->departure_time }}</span>
 
-                <span class="d-block" >Arrive to: {{ $train->arrival_station}}</span>
+                <span class="d-block" >Arrival in: {{ $train->arrival_station}}</span>
                 <span class="d-block" >At: {{ $train->arrival_time }}</span>
+                <span>{{ $train->price }}€</span>
 
             </li>
         @endforeach
