@@ -17,35 +17,48 @@
     <title>Trains</title>
 </head>
 
-<body>
-    <h1>List of trains</h1>
+<body class="container">
+    <h1 class="text-center py-3">List of trains</h1>
 
     <ul>
 
         @foreach ($trains as $train)
-            {{ $cancelled = $train->cancelled == 1 ? true : false }}
+            @php
 
-            <li class="{{ $cancelled ? 'bg-danger' : '' }}">
+                $cancelled_train = $train->cancelled == 1 ? true : false;
+                $in_late_train = $train->in_time == 0 ? true : false;
 
-                <span>{{ $cancelled
-                    ? 'This train was cancelled'
-                    : ($train->in_time == 1
-                        ? 'In time'
-                        : ($train->late_time .= ' minutes late')) }}
-                </span>
+            @endphp
 
-                <h3 class="d-block">{{ $train->company }}</h3>
-                <h5 class="d-block">{{ $train->train_code }} </h5>
+            <li class="{{ $cancelled_train ? 'bg-danger-subtle ' : ($in_late_train ? 'bg-warning-subtle ' : '') }}card text-center mb-3">
 
-                <span class="d-block">Departure on: {{ $train->departure_date }}</span>
-                <span class="d-block">From: {{ $train->departure_station }}</span>
-                <span class="d-block">At: {{ $train->departure_time }}</span>
+                <div class="card-header pt-3{{ $cancelled_train ? ' bg-danger' : ($in_late_train ? ' bg-warning' : '') }}">
 
-                <span class="d-block">Arrival in: {{ $train->arrival_station }}</span>
-                <span class="d-block">At: {{ $train->arrival_time }}</span>
-                <span>{{ $train->price }}€</span>
+                    <h5 class="card-title{{ $cancelled_train ? ' text-light' : '' }}">{{ $train->company }}</h5>
+                    <h6 class="card-subtitle {{ $cancelled_train ? ' text-light ' : ' text-body-secondary ' }} mb-2">{{ $train->train_code }} </h6>
+                    
+                </div>
+
+                <div class="card-body">
+
+                    <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill border border-light {{ $in_late_train ? 'bg-danger' : 'bg-success' }}">{{ $cancelled_train
+                        ? 'Cancelled'
+                        : ($train->in_time == 1
+                            ? 'In time'
+                            : ($train->late_time .= ' minutes late')) }}
+                    </span>
+
+                    <span class="d-block">Departure on: {{ $train->departure_date }}</span>
+                    <span class="d-block">From: {{ $train->departure_station }}</span>
+                    <span class="d-block">At: {{ $train->departure_time }}</span>
+
+                    <span class="d-block">Arrival in: {{ $train->arrival_station }}</span>
+                    <span class="d-block">At: {{ $train->arrival_time }}</span>
+                    <span>{{ $train->price }}€</span>
+                </div>
 
             </li>
+
         @endforeach
 
     </ul>
