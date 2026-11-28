@@ -57,7 +57,7 @@
                     <div class="card-body">
 
                         <span
-                            class="position-absolute top-0 start-50 translate-middle badge rounded-pill border border-light {{ $in_late_train ? 'bg-danger' : 'bg-success' }}">{{ $cancelled_train ? 'Cancelled' : ($train->in_time == 1 ? 'In time' : ($train->late_time .= ' minutes late')) }}
+                            class="position-absolute top-0 start-50 translate-middle badge rounded-pill border border-light {{ $in_late_train || $train->cancelled ? 'bg-danger' : 'bg-success' }}">{{ $cancelled_train ? 'Cancelled' : ($train->in_time == 1 ? 'In time' : ($train->late_time .= ' minutes late')) }}
                         </span>
 
                         <span class="d-block">Departure on: {{ $train->departure_date }}</span>
