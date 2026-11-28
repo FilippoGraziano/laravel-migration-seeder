@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('arrival_station');
             $table->time('departure_time');
             $table->time('arrival_time');
-            $table->string('train_code', length: 10)->unique();
+            $table->string('train_code', length: 10);
             $table->tinyInteger('tot_carriages', false, true);
             $table->boolean('in_time');
             $table->boolean('cancelled');
